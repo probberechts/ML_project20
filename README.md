@@ -14,7 +14,7 @@ You will have to submit your agent's policy (both as 1st and 2nd player) as a CS
 ```python
 from tournament import policy_to_csv
 
-game = pyspiel.load_game("lecuc_poker")
+game = pyspiel.load_game("leduc_poker")
 policy = <your policy for agent 1>
 policy_to_csv(game, policy, '/models/agent_p1.csv')
 ```
@@ -26,7 +26,7 @@ def _random_policy(state):
   actions = state.legal_actions()
   return np.choice(actions)
 
-game = pyspiel.load_game("lecuc_poker")
+game = pyspiel.load_game("leduc_poker")
 callable_policy = policy.PolicyFromCallable(game, _random_policy)
 ```
 
