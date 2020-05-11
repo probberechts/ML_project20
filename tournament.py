@@ -156,11 +156,11 @@ def play_tournament(game, modeldir, rounds=100):
 @click.argument('modeldir', type=click.Path(exists=True))
 @click.argument('outputdir', type=click.Path(exists=True))
 @click.option('--rounds', default=20, help='Number of rounds to play.')
-def cli(game, modeldir, rounds):
+def cli(game, modeldir, outputdir, rounds):
     """Play a round robin tournament"""
     game = pyspiel.load_game(game)
     ranking, results = play_tournament(game, modeldir, rounds)
-    pd.DataFrame(ranking).to_csv(os.path.join(outputdir, 'ranking.csv'))
+    pd.DataFrame(ranking, index=[0]).to_csv(os.path.join(outputdir, 'ranking.csv'))
     pd.DataFrame(results).to_csv(os.path.join(outputdir, 'results.csv'))
 
 if __name__ == '__main__':
