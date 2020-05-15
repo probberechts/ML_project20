@@ -31,6 +31,12 @@ def tabular_policy_from_csv(game, filename):
             state_index, :] = infostate_policy
     return empty_tabular_policy
 
+knownPolicies = {}
+def _tabular_memo(game, filename):
+    if filename not in knownPolicies:
+        knownPolicies[filename] = tabular_policy_from_csv(game, filename)
+    return knownPolicies[filename]
+
 def policy_to_csv(game, policy, filename):
     tabular_policy = tabular_policy_from_policy(game, policy)
     df = pd.DataFrame(
@@ -43,8 +49,8 @@ def play_match(game, csv_policy_home, csv_policy_away):
     action_string = None
 
     agents = [
-        tabular_policy_from_csv(game, csv_policy_home),
-        tabular_policy_from_csv(game, csv_policy_away)
+        _tabular_memo(game, csv_policy_home),
+        _tabular_memo(game, csv_policy_away)
     ]
 
     env_configs = {"players": 2}
